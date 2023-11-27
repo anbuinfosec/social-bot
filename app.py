@@ -1,3 +1,4 @@
+import logging
 from flask import Flask, render_template_string
 
 app = Flask("SOCIAL-BOT")
@@ -111,6 +112,10 @@ def home():
 </html>'''
   return render_template_string(html_content)
 
+
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+log.propagate = False
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000, debug=False)
