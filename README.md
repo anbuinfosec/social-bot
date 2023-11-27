@@ -47,9 +47,8 @@ python bot.py
 
 ## Tutorial
 
-<div align="center">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/O8oa3bwEF-o?autoplay=1" frameborder="0" allowfullscreen></iframe>
-</div>
+[![Watch the tutorial](https://img.youtube.com/vi/O8oa3bwEF-o/maxresdefault.jpg)](https://youtu.be/O8oa3bwEF-o?si=kCD98KBpCcfCZxlJ)
+
 
 
 ## 🌐 Socials:
