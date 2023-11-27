@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "social-bot"
-version = "1.0.2""
-description = ""
+version = "1.0.2"
+description = "A simple python social media video downloader bot."
 authors = ["Mohammad Alamin anbuinfosec@gmail.com"]
 
 [tool.poetry.dependencies]
