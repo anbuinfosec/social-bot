@@ -2,7 +2,7 @@
 #!/bin/python3
 #############################$##############
 # PYTHON SOCIAL MEDIA VIDEO DOWNLOADER BOT #
-#          BOT VERSION: 1.0.1              #
+#          BOT VERSION: 1.0.2              #
 #  AUTHOR : MOHAMMAD ALAMIN (anbuinfosec)  #
 #      GET APIKEY : https://anbusec.xyz    #
 #           COPYRIGHT : anbuinfosec        #
@@ -13,6 +13,8 @@ import os
 import telebot
 import subprocess
 from utils import *
+from app import *
+from telebot import types
 from time import sleep
 
 load_dotenv()
@@ -22,8 +24,9 @@ bot = telebot.TeleBot(bot_token)
 
 
 def laodInfo():
-  print(f"[+] TOKEN LOADED : {bot_token}")
-  print(f'[+] APIKEY LOADED : {os.getenv("API_KEY")}')
+  print_app_info()
+  print(f" * TOKEN LOADED : {bot_token}")
+  print(f' *  APIKEY LOADED : {os.getenv("API_KEY")}')
 
 
 def start_flask():
@@ -43,7 +46,7 @@ def handle_message(message):
     user_id = message.from_user.id
     chat_id = message.chat.id
     print(
-        f"[NEW MESSAGE]==========================================================\n[+] USER ID: [{user_id}]\n[+] CHAT ID: [{chat_id}]\n[+] MESSAGE: {url}"
+        f"[ * New Message]======================================================\n[+] User Id: [{user_id}]\n[+] Chat Id: [{chat_id}]\n[+] Message: {url}"
     )
 
     wait_message = bot.reply_to(
@@ -75,15 +78,23 @@ def handle_message(message):
                                 chat_id=chat_id,
                                 message_id=wait_message.message_id)
           video = open(video_path, 'rb')
-          bot.send_video(chat_id, video)
+          try:
+            bot.send_video(chat_id, video)
+            print ("[+] Video uploaded successfully.")
+          except telebot.apihelper.ApiException as e:
+            print(f'[+] Error {e}')
+          bot.reply_to(
+              message,
+              'Unabailable to upload your video, try to download it manually.')
           try:
             bot.delete_message(chat_id, wait_message.message_id)
           except telebot.apihelper.ApiException as e:
-            print(f'[+] ERROR {e}')
+            print(f'[+] Error {e}')
           bot.reply_to(
               message,
               'Thanks for using our bot 💮😍\nJoin our public channel @anbudevs')
           os.remove(video_path)
+          print(f"[+] Video Deleted : {video_path}")
         else:
           bot.edit_message_text(text="❎ Video not found on path!",
                                 chat_id=chat_id,
@@ -93,7 +104,7 @@ def handle_message(message):
                        "❎ Server error: Unable to download your video.")
 
   except Exception as e:
-    print(f"[+] ERROR FOUND : {e}")
+    print(f"[+] Error Found : {e}")
     logging.error(f"An error occurred: {e}")
     bot.edit_message_text(
         text="✅ An unexpected error occurred. Please try again later.",
