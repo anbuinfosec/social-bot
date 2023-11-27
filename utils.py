@@ -21,6 +21,12 @@ load_dotenv()
 api_key = os.getenv("API_KEY")
 
 
+def print_app_info():
+  print(f" * VERSION: 1.0.1")
+  print(f" * AUTHOR: anbuinfosec")
+  print(f" * EMAIL: anbuinfosec@gmail.com")
+
+
 def clear():
   os.system("clear")
 
@@ -57,8 +63,8 @@ def get_storage_info():
 def check_system_ip():
   try:
     data = json.loads(requests.get('https://api.myip.com/').text)
-    print(f"[+] SERVER COUNTRY : {data['country']}")
-    print(f"[+] SERVER IP: {data['ip']}")
+    print(f" * Server Country : {data['country']}")
+    print(f" * Server Ip : {data['ip']}")
   except json.JSONDecodeError:
     print("[!] Error decoding JSON response.")
   except requests.RequestException as e:
@@ -99,8 +105,7 @@ def downloadFromUrl(url, destination_folder='tmp'):
     with open(file_path, "wb") as f:
       f.write(response.content)
       print(
-          f"[+] FILE DOWNLOADED : {url}\n[+] FILE SAVED : {os.path.join(destination_folder, FileName)}\n=======================================================================\n\n"
-      )
+          f"[+] File saved in : {os.path.join(destination_folder, FileName)}")
       return file_path
   else:
     return False
